@@ -1,0 +1,60 @@
+// buildscript必须在顶部，注意位置
+buildscript {
+    repositories {
+        // 优先使用国内源
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        mavenCentral()
+    }
+    dependencies {
+        // 让spring-boot支持gradle
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+}
+
+
+allprojects {
+    //创建项目输入groupId
+    group 'org.example'
+    //创建项目所输入的版本
+    version '1.0-SNAPSHOT'
+
+}
+
+subprojects {
+    apply plugin: 'java'
+    //引入spring 依赖管理插件
+    apply plugin: 'io.spring.dependency-management'
+    //引入springboot 插件
+    apply plugin: 'org.springframework.boot'
+    //指定编译编译.java文件的jdk版本
+    sourceCompatibility = 1.8
+    //确保class文件与targetCompatibility指定版本，或者更新的java虚拟机兼容
+    targetCompatibility = 1.8
+    /**
+     * 指定子模块所使用仓库的路径
+     * */
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        mavenCentral()
+    }
+    /**
+     * 引入之模块jar包
+     */
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.16'
+        annotationProcessor 'org.projectlombok:lombok:1.18.16'
+        implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+        implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+    }
+
+}
