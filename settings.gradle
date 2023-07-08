@@ -1,6 +1,5 @@
 rootProject.name = 'GradleTest'
 include 'web'
 include 'core'
-include 'untitled'
-include 'api'
+
 
