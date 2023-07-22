@@ -21,8 +21,7 @@ import java.util.List;
 public class UserService{
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     public List<User> getUserList() {
-        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("beans.xml");
-        logger.info("");
+        logger.error("告警信息来了");
         List<User> userList=new ArrayList<>();
         //链式调用
         User userZs=new User().setId(1L).setName("张三").setAge(18);
