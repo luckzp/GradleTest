@@ -10,7 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import java.util.List;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.FileNotFoundException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+
 
 /**
  * 获取用户列表
@@ -30,8 +39,23 @@ public class UserController {
      **/
     @RequestMapping("/list")
     public String toList(Model model){
-        List<User> users=userService.getUserList();
-        model.addAttribute("users",users);
+        Document document = new Document();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try {
+            PdfWriter.getInstance(document, baos);
+            document.open();
+            document.add(new Paragraph("Hello World! This is a test PDF document."));
+            document.close();
+            System.out.println("PDF Created!");
+
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+
+            // Now 'is' contains the PDF data. You can use this InputStream to upload the PDF to your OSS.
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
         return "list";
     }
 }
